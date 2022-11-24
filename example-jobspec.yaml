@@ -9,7 +9,7 @@ spec:
       serviceAccountName: configure-provider-deployment-sa
       containers:
       - name: provider-configuration
-        image: quay.io/marwan_attar_ibm/provider_configuration
+        image: quay.io/marwan_attar_ibm/provider-configuration
         command: ["./configure-deployment.sh"]
         env:
         - name: KUBECONFIG
