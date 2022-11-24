@@ -1,15 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: cp4x-verify-crb
-  namespace: verify
+  name: aws-provider-deployment-crb
+  namespace: crossplane
 subjects:
 - kind: ServiceAccount
-  name: cp4x-verify-sa
-  namespace: verify
+  name: CHANGEME
+  namespace: crossplane
 roleRef:
   kind: ClusterRole
-  name: cp4x-verify-cr
+  name: aws-provider-role
   apiGroup: rbac.authorization.k8s.io
-
-
