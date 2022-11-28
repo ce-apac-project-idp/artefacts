@@ -1,0 +1,49 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: psql-aws-composition
+  labels:
+    crossplane.io/xrd: xpostgres.apac.catalyst.project.idp
+    provider: aws
+    type: production
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: apac.catalyst.project.idp/v1alpha1
+    kind: xpostgresql
+  resources:
+  - name: aws-rds-psql
+    base:
+      apiVersion: database.aws.crossplane.io/v1beta1
+      kind: RDSInstance
+      spec:
+        forProvider:
+          masterUsername: marwanisthebest
+          allocatedStorage: 20
+          engine: postgres
+          engineVersion: "12"
+          skipFinalSnapshotBeforeDeletion: true
+        providerConfigRef:
+          name: aws-provider-config
+        writeConnectionSecretToRef:
+          name: default
+          namespace: crossplane-system
+    namespace: crossplane-system
+    patches:
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.writeConnectionSecretToRef.name
+      transforms:
+        - type: string
+          string:
+            fmt: "%s-psql"
+    - type: FromCompositeFieldPath
+      fromFieldPath: "spec.parameters.region"
+      toFieldPath: "spec.forProvider.region"
+    - type: FromCompositeFieldPath
+      fromFieldPath: "spec.parameters.class"
+      toFieldPath: "spec.forProvider.dbInstanceClass"
+    connectionDetails:
+      - fromConnectionSecretKey: username
+      - fromConnectionSecretKey: password
+      - fromConnectionSecretKey: endpoint
+      - fromConnectionSecretKey: port

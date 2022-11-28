@@ -1,0 +1,40 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xpostgresqls.apac.catalyst.project.idp
+spec:
+  group: apac.catalyst.project.idp
+  names:
+    kind: xpostgresql
+    plural: xpostgresqls
+  claimNames:
+    kind: postgresql
+    plural: postgresql
+  connectionSecretKeys:
+    - username
+    - password
+    - endpoint
+    - port
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  region:
+                    type: string
+                  class:
+                    type: string
+                required:
+                - region
+                - class
+            required:
+            - parameters

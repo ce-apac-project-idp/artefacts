@@ -1,0 +1,61 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: mysql-aws-composition
+  labels:
+    crossplane.io/xrd: xpostgres.apac.catalyst.project.idp
+    provider: aws
+    type: production
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: apac.catalyst.project.idp/v1alpha1
+    kind: xpostgresql
+  resources:
+  - name: aws-rds-postgres
+    base:
+      apiVersion: database.aws.crossplane.io/v1beta1
+      kind: RDSInstance
+      spec:
+        forProvider:
+          engine: mysql
+          engineVersion: 8.0.28
+          licenseModel: general-public-license
+          masterUsername: admin
+          multiAZ: false
+          port: 3306
+          skipFinalSnapshotBeforeDeletion: true
+          publiclyAccessible: true
+          storageEncrypted: false
+          storageType: gp2
+          enablePerformanceInsights: false
+          enableIAMDatabaseAuthentication: false
+          deletionProtection: false
+          copyTagsToSnapshot: false
+          backupRetentionPeriod: 0
+          autoMinorVersionUpgrade: true
+          allocatedStorage: 20
+        providerConfigRef:
+          name: aws-provider-config
+        writeConnectionSecretToRef:
+          name: default
+          namespace: crossplane-system
+    namespace: crossplane-system
+    patches:
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.writeConnectionSecretToRef.name
+      transforms:
+        - type: string
+          string:
+            fmt: "%s-postgresql"
+    - type: FromCompositeFieldPath
+      fromFieldPath: "spec.parameters.region"
+      toFieldPath: "spec.forProvider.region"
+    - type: FromCompositeFieldPath
+      fromFieldPath: "spec.parameters.class"
+      toFieldPath: "spec.forProvider.dbInstanceClass"
+    connectionDetails:
+      - fromConnectionSecretKey: username
+      - fromConnectionSecretKey: password
+      - fromConnectionSecretKey: endpoint
+      - fromConnectionSecretKey: port

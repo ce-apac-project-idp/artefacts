@@ -1,0 +1,16 @@
+apiVersion: apac.catalyst.project.idp/v1alpha1
+kind: postgresql
+metadata:
+  name: mysql-test-claim
+  namespace: crossplane-system
+spec:
+  parameters:
+    class: db.t3.small
+    region: us-east-1
+  compositionRef:
+    name: postgres-aws-composition
+  # compositionSelector:
+  #   matchLabels:
+  #     type: production
+  writeConnectionSecretToRef:
+    name: postgres-test-claim-connection-secret

@@ -1,0 +1,16 @@
+apiVersion: apac.catalyst.project.idp/v1alpha1
+kind: postgresql
+metadata:
+  name: postgres-test-claim
+  namespace: crossplane-system
+spec:
+  parameters:
+    class: db.t2.small
+    region: us-east-1
+  compositionRef:
+    name: psql-aws-composition
+  # compositionSelector:
+  #   matchLabels:
+  #     type: production
+  writeConnectionSecretToRef:
+    name: postgres-test-claim-connection-secret

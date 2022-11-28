@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ubuntu
+  namespace: crossplane-system
+spec:
+  serviceAccountName: configure-provider-deployment-sa
+  containers:
+    - resources: {}
+      name: ubuntu
+      command:
+        - /bin/bash
+        - '-c'
+        - '--'
+      imagePullPolicy: Always
+      terminationMessagePolicy: File
+      image: quay.io/marwan_attar_ibm/test_image
+      args:
+        - while true; do sleep 30; done;
+  serviceAccount: configure-provider-deployment-sa
