@@ -11,4 +11,6 @@ Since this image is to also perform oc commands, the latest binary (at the time 
 3) Finally, libc-compat was used. Long story short alpine images, unlike most linux disributions, is based of the [musl](https://musl.libc.org/) libc library, which is a minimal (and far from fully compatible) the GNU libc library which provides the standard C library and POSIX API most linux distros are based of. Complex software (eg, the oc library) which is built against [glibc](https://www.gnu.org/software/libc/) will not (likely) work with musl-libc, even with symlinking. See this rather excellent explanation [here](https://stackoverflow.com/questions/66963068/docker-alpine-executable-binary-not-found-even-if-in-path)
 
 
-Finally, the "ENTRYPOINT" and "CMD" directives in this Dockerfile do not really matter. The script provided in the task itself is the pod's "CMD/ARGS". The aforementined directives get overriden.
+The "ENTRYPOINT" and "CMD" directives in this Dockerfile do not really matter. The script provided in the task itself is the pod's "CMD/ARGS". The aforementined directives get overriden.
+
+This image was pushed up (and made public) in Quay. The image can be found [here](quay.io/langley_millard_ibm/idp-gitops-cli-task). Note the git-cli-task spec now reference this image, as opposed to the default alpine:git image.
