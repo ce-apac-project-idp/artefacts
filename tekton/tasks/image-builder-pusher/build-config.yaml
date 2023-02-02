@@ -1,0 +1,21 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: unique-name-of-application-here     # Enforce this to be namespace unique, can use custom controllers here.
+  labels:
+    app: unique-name-of-application-here    # Enforce this to be namespace unique, can use custom controllers here.
+    developer: name-of-developer-here
+    purpose: dev
+spec:
+  source:
+    type: Git
+    git:
+      uri: github-replace-me
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile    
+  output:
+    to:
+      kind: DockerImage 
+      name: mywebsite:dev

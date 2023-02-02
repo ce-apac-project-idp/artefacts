@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: REPLACE_ME
+  namespace: marwan-dev
+spec:
+  selector:
+    matchLabels:
+      app: REPLACE_ME 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: REPLACE_ME
+    spec:
+      containers:
+        - name: REPLACE_ME 
+          image: REPLACE_ME
