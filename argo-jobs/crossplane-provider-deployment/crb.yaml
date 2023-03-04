@@ -2,11 +2,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: aws-provider-deployment-crb
-  namespace: crossplane
 subjects:
 - kind: ServiceAccount
   name: CHANGEME
-  namespace: crossplane
+  namespace: crossplane-system
 roleRef:
   kind: ClusterRole
   name: aws-provider-role
