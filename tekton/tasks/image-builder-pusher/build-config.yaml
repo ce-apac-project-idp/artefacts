@@ -12,7 +12,7 @@ spec:
     git:
       uri: github-replace-me
   strategy:
-    type: Docker                      
+    type: Docker
     dockerStrategy:
       dockerfilePath: Dockerfile
   output:
