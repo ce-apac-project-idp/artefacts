@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: REPLACE_ME
-  namespace: idp-clients
+  namespace: idp-clients ## This namespace is created as a namespace in the infra repo.
 spec:
   selector:
     matchLabels:
