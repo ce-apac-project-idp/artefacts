@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: REPLACE_ME
-  namespace: marwan-dev
+  namespace: idp-clients
 spec:
   selector:
     matchLabels:
