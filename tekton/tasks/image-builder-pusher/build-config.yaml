@@ -14,8 +14,8 @@ spec:
   strategy:
     type: Docker                      
     dockerStrategy:
-      dockerfilePath: Dockerfile    
+      dockerfilePath: Dockerfile
   output:
     to:
-      kind: DockerImage 
+      kind: DockerImage
       name: mywebsite:dev
