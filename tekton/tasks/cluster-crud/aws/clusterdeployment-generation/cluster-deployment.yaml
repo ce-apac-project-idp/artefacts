@@ -1,0 +1,31 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: CHANGME-UI
+  namespace: CHANGME-ENV-TEKTON-JOB
+  labels:
+    cloud: CHANGEME-UI
+    region: CHANGEME-UI
+    vendor: OpenShift
+    cluster.open-cluster-management.io/clusterset: 'default'
+spec:
+  baseDomain: CHANGME-UPSTREAM-RESULT
+  clusterName: CHANGEME-UI
+  controlPlaneConfig:
+    servingCertificates: {}
+  installAttemptsLimit: 1
+  installed: false
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: CHANGME-ENV-TEKTON-JOB
+      region: CHANGME-UI
+  provisioning:
+    installConfigSecretRef:
+      name: CHANGME-UPSTREAM-RESULT
+    sshPrivateKeySecretRef:
+      name: CHANGME-ENV-TEKTON-JOB
+    imageSetRef:
+      name: CHANGME-CM
+  pullSecretRef:
+    name: CHANGME-ENV-TEKTON-JOB

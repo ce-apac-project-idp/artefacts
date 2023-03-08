@@ -56,8 +56,6 @@ secretName="$CLUSTER_NAME-install-config" yq e -i '.metadata.name = env(secretNa
 # The install-config-ref secret and the value associated with the baseDomain will be passed to the downstream task.
 # Techincally we don't need to pass the baseDomain as this is present in the configMap but says the overhead of an API call.
 # See the bp-task and the pipeline of the devsecops module for more information.
-# encoded=`cat install-config-template.yaml | base64 -w 0`
-# awk -v ENCODED="$encoded" '{ sub(/WORK/, ENCODED); print; }' install-config.yaml > /tmp/work.yaml
 #baseDomain=$(yq '.data.baseDomain' aws-ic-cmap.yaml)
 #installConfigRef="$CLUSTER_NAME-install-config"
 
