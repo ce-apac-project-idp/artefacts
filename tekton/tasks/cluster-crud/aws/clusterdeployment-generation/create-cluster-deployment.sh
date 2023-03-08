@@ -17,15 +17,11 @@ yq e -i '.spec.clusterName = env(CLUSTER_NAME)' /tmp/cluster-deployment.yaml
 yq e -i '.spec.platform.aws.region = env(REGION)' /tmp/cluster-deployment.yaml
 
 # Obtain parameters from the upstream job
-baseDomain=$(echo $BASE_DOMAIN | tr -d ' ')
-installConfigRef=$(echo $INSTALL_CONFIG_REF | tr -d ' ')
-
-# Upstream parameters
-yq e -i '.spec.baseDomain = env(baseDomain)' /tmp/cluster-deployment.yaml
-yq e -i '.spec.provisioning.installConfigSecretRef = env(installConfigRef)' /tmp/cluster-deployment.yaml
+baseDomain=$(echo $BASE_DOMAIN | tr -d ' ') yq e -i '.spec.baseDomain = env(baseDomain)' /tmp/cluster-deployment.yaml
+installConfigRef=$(echo $INSTALL_CONFIG_REF | tr -d ' ') yq e -i '.spec.provisioning.installConfigSecretRef = env(installConfigRef)' /tmp/cluster-deployment.yaml
 
 # Obtain parameter from ConfigMap - OpenShift Version is provided via a User inpur
-version=$(oc get cm  rhacm-aws-install-config-configmap -o yaml | grep "$OS_VERSION=" |  cut -d "=" -f2 | awk '{print $1}') yq e -i '.spec.provisioning.imageSetRef.name = env(version)' /tmp/cluster-deployment.yaml
+version=$(oc get cm  rhacm-aws-install-config-configmap -n scratchspace -o yaml | grep "$OS_VERSION=" |  cut -d "=" -f2 | awk '{print $1}') yq e -i '.spec.provisioning.imageSetRef.name = env(version)' /tmp/cluster-deployment.yaml
 
 
 # TODO: The remaining parameters. These are the references to the SSH, RH Pull and AWS Creds Secrets.
