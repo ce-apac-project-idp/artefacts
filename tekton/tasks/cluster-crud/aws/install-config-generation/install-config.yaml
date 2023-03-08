@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: CHANGME
+  namespace: CHANGEME
+type: Opaque
+data:
+  # Base64 encoding of install-config yaml
+  install-config.yaml: CHANGEME
