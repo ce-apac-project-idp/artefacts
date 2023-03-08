@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: CHANGME
+    cluster.open-cluster-management.io/managedCluster: CHANGEME
+    kubernetes.io/metadata.name: CHANGEME
+  name: CHANGME

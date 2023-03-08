@@ -1,0 +1,22 @@
+---
+apiVersion: hive.openshift.io/v1
+kind: MachinePool
+metadata:
+  name: CHANGME-UI-CLUSTERNAME-"WORKER"
+  namespace: CHANGEME-TEKTON-ENV
+spec:
+  clusterDeploymentRef:
+    name: CHANGEME-UI
+  name: CHANGME-UI-CLUSTERNAME-"WORKER"
+  platform:
+    aws:
+      rootVolume:
+        iops: CHANGEME_CONFIGMAP
+        size: CHANGEME_CONFIGMAP
+        type: CHANGEME_CONFIGMAP
+      type: CHANGEME_CONFIGMAP
+      zones:
+      - ap-southeast-2a # Parametrise zones later
+      - ap-southeast-2b
+      - ap-southeast-2c
+  replicas: CHANGEME_CONFIGMAP
