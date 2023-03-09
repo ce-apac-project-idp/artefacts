@@ -18,6 +18,9 @@ spec:
   - name: cloud
     type: string
     description: Chosen cloud provider to host the cluster.
+  - name: version
+    type: string
+    description: OpenShift version.
   workspaces:
   - name: shared-data
     description: |
@@ -38,5 +41,7 @@ spec:
       value: $(params.cloud)
     - name: configMapName
       value: rhacm-aws-install-config-configmap
+    - name: version
+      value: $(params.version)
     - name: resourcesNamespace
       value: scratchspace

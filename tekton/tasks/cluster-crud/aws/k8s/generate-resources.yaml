@@ -21,6 +21,15 @@ spec:
     - name: region
       type: string
       description: Region the cluster is deployed to.
+    - name: cloud
+      type: string
+      description: Chosen hyperscaler.
+    - name: version
+      type: string
+      description: OpenShift version
+  steps:
+    - name: namespace-generation
+      image: qu
   steps:
     - name: generate-install-config
       image: quay.io/marwan_attar_ibm/rhacm-install-config-generator
@@ -104,7 +113,7 @@ spec:
         echo $baseDomain | tee /tekton/results/baseDomain
         echo $installConfigRef | tee /tekton/results/installConfigRef
     - name: generate-cluster-deployment
-      image: marwan_attar_ibm/rhacm-install-cluster-deployment-generator
+      image: quay.io/marwan_attar_ibm/rhacm-install-cluster-deployment-generator
       env:
       - name: CLUSTER_NAME
         value: "$(params.clusterName)"
@@ -114,14 +123,10 @@ spec:
         value: "$(params.region)"
       - name: WORKSPACE
         value: "$(workspaces.output.path)"
+      - name: VERSION
+        value: "$(params.version)"
       script: |
         #!/usr/bin/env bash
-        ls -ltr /workspace/output
-        cat /workspace/output/install-config.yaml
-        cat /workspace/output/rhacm-aws-cluster-crud-cmap.yaml
-        ls -ltr /tekton/results
-        cat /tekton/results/installConfigRef
-        cat /tekton/results/baseDomain
 
         ## TODO: We are depending on global uniqueness given through the cluster name parameter. Enforce check here
 
@@ -142,16 +147,15 @@ spec:
         installConfigRef=$(cat /tekton/results/installConfigRef | tr -d ' ') yq e -i '.spec.provisioning.installConfigSecretRef = env(installConfigRef)' /tmp/cluster-deployment.yaml
 
         # Obtain parameter from ConfigMap - OpenShift Version is provided via a User input
-        version=`yq '.data.versions' aws-ic-cmap.yaml | grep "$OS_VERSION" |  cut -d "=" -f2 | awk '{print $1}'` yq e -i '.spec.provisioning.imageSetRef.name = env(version)' /tmp/cluster-deployment.yaml
+        version=`yq '.data.versions' rhacm-aws-cluster-crud-cmap.yaml | grep "$OS_VERSION" |  cut -d "=" -f2 | awk '{print $1}'` yq e -i '.spec.provisioning.imageSetRef.name = env(version)' /tmp/cluster-deployment.yaml
 
         # TODO: The remaining parameters. These are the references to the SSH, RH Pull and AWS Creds Secrets.
 
 
         # TODO: ArgoCD Sync Wave Annotations!!!! This will not be defined at an ArgoApp level
         cp /tmp/cluster-deployment.yaml $WORKSPACE
-
-    - name: generate-cluster-deployment
-      image: marwan_attar_ibm/rhacm-install-cluster-deployment-generator
+    - name: print-out
+      image: quay.io/marwan_attar_ibm/rhacm-install-cluster-deployment-generator
       script: |
         #!/usr/bin/env bash
         ls -ltr /workspace/output
