@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cluster-crud
+  labels:
+    build-name: cluster-crud
+spec:
+  description: |
+   This pipeline will be triggered in the event a new cluster is to be provisioned.  
+  params:
+  - name: cluster-name
+    type: string
+    description: Name of cluster.
+  - name: region
+    type: string
+    description: Region cluster resides within.
+  workspaces:
+  - name: shared-data
+    description: |
+      Shared, persisted data for the tasks constituting this pipeline.
+  tasks:
+  - name: generate-resources
+    taskRef:
+      name: generate-resources
+    workspaces:
+    - name: output
+      workspace: shared-data
+    params:
+    - name: clusterName
+      value: $(params.cluster-name)
+    - name: region
+      value: $(params.region)
+    - name: purpose
+      value: $(params.purpose)
+    - name: configMapName
+      value: rhacm-aws-install-config-configmap
+    - name: resourcesNamespace
+      value: scratchspace

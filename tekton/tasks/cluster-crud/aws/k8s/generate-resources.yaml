@@ -104,8 +104,7 @@ spec:
         echo $baseDomain | tee /tekton/results/baseDomain
         echo $installConfigRef | tee /tekton/results/installConfigRef
     - name: read-from-workspace
-      image: ubuntu
+      image: quay.io/marwan_attar_ibm/rhacm-install-config-generator
       script: |
         #!/usr/bin/env bash
-        export FOO=$(cat /workspace/FOO)
-        echo $FOO
+        sleep 1000
