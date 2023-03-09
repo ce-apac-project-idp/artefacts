@@ -29,7 +29,23 @@ spec:
       description: OpenShift version
   steps:
     - name: namespace-generation
-      image: qu
+      image: quay.io/marwan_attar_ibm/rhacm-install-namespace-generator]
+      env:
+      - name: CLUSTER_NAME
+        value: "$(params.clusterName)"
+      - name: WORKSPACE
+        value: "$(workspaces.output.path)"
+      script:  |
+        cd /tmp
+
+        # Parameters passed to the Tekton Job via user input in Backstage 
+        yq e -i '.metadata.name = env(CLUSTER_NAME)' /tmp/namespace.yaml
+        # Note the quotations. We don't want the nesting in this particular case.
+        yq e -i '.metadata.annotations."openshift.io/display-name" = env(CLUSTER_NAME)' /tmp/namespace.yaml
+        yq e -i '.metadata.annotations."cluster.open-cluster-management.io/managedCluster" = env(CLUSTER_NAME)' /tmp/namespace.yaml
+        yq e -i '.metadata.annotations."kubernetes.io/metadata.name" = env(CLUSTER_NAME)' /tmp/namespace.yaml
+
+        cp /tmp/namespace.yaml $WORKSPACE
   steps:
     - name: generate-install-config
       image: quay.io/marwan_attar_ibm/rhacm-install-config-generator
@@ -160,5 +176,5 @@ spec:
         #!/usr/bin/env bash
         ls -ltr /workspace/output
         cat /workspace/output/install-config.yaml
-        cat /workspace/output/rhacm-aws-cluster-crud-cmap.yaml
         cat /workspace/output/cluster-deployment.yaml
+        cat /workspace/output/namespace.yaml
