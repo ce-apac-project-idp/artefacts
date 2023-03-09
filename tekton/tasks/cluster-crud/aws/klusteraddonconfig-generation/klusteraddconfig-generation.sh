@@ -23,3 +23,4 @@ searchCollector=`yq '.data.klusterlet' aws-ic-cmap.yaml | grep searchCollector |
 iamPolicyController=`yq '.data.klusterlet' aws-ic-cmap.yaml | grep iamPolicyController |  cut -d "=" -f2 | awk '{print $1}'` yq e -i '.spec.iamPolicyController.enabled = env(iamPolicyController)' /tmp/klusteraddonconfig.yaml
 certPolicyController=`yq '.data.klusterlet' aws-ic-cmap.yaml | grep certPolicyController |  cut -d "=" -f2 | awk '{print $1}'` yq e -i '.spec.certPolicyController.enabled = env(certPolicyController)' /tmp/klusteraddonconfig.yaml
 
+# We need to be adding the sync waves as annotations
