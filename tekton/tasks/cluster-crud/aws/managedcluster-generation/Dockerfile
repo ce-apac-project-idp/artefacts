@@ -6,6 +6,6 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 COPY managedcluster.yaml /tmp
 COPY managedclusterinfo.yaml /tmp
 RUN chmod a+w /tmp/managedcluster.yaml  # Depending on your umask value (default 022 or 002) chmod +w may be different to chmod a+w. So I explicitly pass in the a.
-RUN chmod a+x /tmp/managedclusterinfo.yaml
+RUN chmod a+w /tmp/managedclusterinfo.yaml
 USER builder
 ENTRYPOINT ["tail", "-f", "/dev/null"] # This is just a placeholder, this will be overriden by the script defined in the Task/TaskRun level.

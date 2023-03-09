@@ -10,7 +10,7 @@ cd /tmp
 oc get configmap rhacm-aws-install-config-configmap -n scratchspace -o yaml > /tmp/aws-ic-cmap.yaml
 
 yq e -i '.metadata.name = env(CLUSTER_NAME)' /tmp/managedclusterinfo.yaml
-yq e -i '.metadata.labels.name = env(CLUSTER_NAME)' /tmp/managedclusterinfo.yaml
+yq e -i '.metadata.namespace = env(CLUSTER_NAME)' /tmp/managedclusterinfo.yaml
 
 # Parameters passed to the Tekton Job via user input in Backstage 
 yq e -i '.metadata.name = env(CLUSTER_NAME)' /tmp/managedcluster.yaml
