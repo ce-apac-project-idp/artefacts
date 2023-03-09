@@ -29,7 +29,7 @@ spec:
       description: OpenShift version
   steps:
     - name: namespace-generation
-      image: quay.io/marwan_attar_ibm/rhacm-install-namespace-generator]
+      image: quay.io/marwan_attar_ibm/rhacm-install-namespace-generator
       env:
       - name: CLUSTER_NAME
         value: "$(params.clusterName)"
@@ -46,7 +46,6 @@ spec:
         yq e -i '.metadata.annotations."kubernetes.io/metadata.name" = env(CLUSTER_NAME)' /tmp/namespace.yaml
 
         cp /tmp/namespace.yaml $WORKSPACE
-  steps:
     - name: generate-install-config
       image: quay.io/marwan_attar_ibm/rhacm-install-config-generator
       env:
