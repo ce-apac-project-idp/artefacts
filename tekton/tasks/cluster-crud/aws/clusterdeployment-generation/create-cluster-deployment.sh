@@ -12,7 +12,7 @@ oc get configmap rhacm-aws-install-config-configmap -n scratchspace -o yaml > /t
 
 # Parameters passed to the Tekton Job via user input in Backstage 
 yq e -i '.metadata.name = env(CLUSTER_NAME)' /tmp/cluster-deployment.yaml
-yq e -i '.metadata.namespace = env(NAMESPACE)' /tmp/cluster-deployment.yaml
+yq e -i '.metadata.namespace = env(CLUSTER_NAME)' /tmp/cluster-deployment.yaml
 yq e -i '.metadata.labels.cloud = env(CLOUD)' /tmp/cluster-deployment.yaml
 yq e -i '.metadata.labels.region = env(REGION)' /tmp/cluster-deployment.yaml
 yq e -i '.spec.clusterName = env(CLUSTER_NAME)' /tmp/cluster-deployment.yaml

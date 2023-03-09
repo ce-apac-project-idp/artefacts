@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: cluster-crud
+  namespace: tekton
   labels:
     build-name: cluster-crud
 spec:
@@ -14,6 +15,9 @@ spec:
   - name: region
     type: string
     description: Region cluster resides within.
+  - name: cloud
+    type: string
+    description: Chosen cloud provider to host the cluster.
   workspaces:
   - name: shared-data
     description: |
@@ -30,8 +34,8 @@ spec:
       value: $(params.cluster-name)
     - name: region
       value: $(params.region)
-    - name: purpose
-      value: $(params.purpose)
+    - name: cloud
+      value: $(params.cloud)
     - name: configMapName
       value: rhacm-aws-install-config-configmap
     - name: resourcesNamespace

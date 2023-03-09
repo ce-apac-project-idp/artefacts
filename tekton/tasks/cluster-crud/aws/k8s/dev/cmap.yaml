@@ -1,0 +1,35 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: rhacm-aws-install-config-configmap
+  namespace: scratchspace
+data:
+  baseDomain: rhacm-idp.com
+  compute: |
+    replicas=3
+    architecture=amd64
+    platform.aws.type=m5.xlarge
+    platform.aws.rootVolume.iops=2000
+    platform.aws.rootVolume.size=100
+    platform.aws.rootVolume.type=io1
+  controlPlane: |
+    replicas=3
+    architecture=amd64
+    platform.aws.type=m5.xlarge
+    platform.aws.rootVolume.iops=4000
+    platform.aws.rootVolume.size=100
+    platform.aws.rootVolume.type=io1
+  klusterlet: |
+    cloud=Amazon
+    vendor=OpenShift
+    applicationManager.enabled=true
+    policyController.enabled=true
+    searchCollector.enabled=true
+    certPolicyController.enabled=true
+    iamPolicyController.enabled=true
+  managedCluster: |
+    cloud=Amazon
+    vendor=OpenShift
+  versions: |
+    4.9=img4.9.56-x86-64-appsub
+
