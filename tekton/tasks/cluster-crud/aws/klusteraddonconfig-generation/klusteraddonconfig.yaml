@@ -1,0 +1,21 @@
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: CHANGEME
+  namespace: CHANGEME
+spec:
+  clusterName: CHANGEME
+  clusterNamespace: CHANGEME
+  clusterLabels:
+    cloud: CHANGEME 
+    vendor: OpenShift
+  applicationManager:
+    enabled: CHANGEME
+  policyController:
+    enabled: CHANGEME
+  searchCollector:
+    enabled: CHANGEME
+  certPolicyController:
+    enabled: CHANGEME
+  iamPolicyController:
+    enabled: CHANGEME

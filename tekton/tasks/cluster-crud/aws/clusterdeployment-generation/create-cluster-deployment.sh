@@ -6,6 +6,8 @@ cd /tmp
 
 # Parametrise the name of the configmap and the namespace as enviornment variables passed to the Tekton Job
 # This configmap needs to be Git'opsed
+# TODO: Fetch this through the passed file from the most upstream task to avoid the overhead of calls
+
 oc get configmap rhacm-aws-install-config-configmap -n scratchspace -o yaml > /tmp/aws-ic-cmap.yaml
 
 # Parameters passed to the Tekton Job via user input in Backstage 
@@ -25,3 +27,6 @@ version=$(oc get cm  rhacm-aws-install-config-configmap -n scratchspace -o yaml 
 
 
 # TODO: The remaining parameters. These are the references to the SSH, RH Pull and AWS Creds Secrets.
+
+
+# TODO: ArgoCD Sync Wave Annotations!!!! This will not be defined at an ArgoApp level

@@ -6,6 +6,8 @@ cd /tmp
 
 # Parametrise the name of the configmap and the namespace as enviornment variables passed to the Tekton Job
 # This configmap needs to be Git'opsed
+# TODO: Put an immutable field in the configmap as well to ensure it remains static throughout its lifetime.
+# See here: https://www.cloudytuts.com/tutorials/kubernetes/how-to-create-immutable-configmaps-and-secrets/
 oc get configmap rhacm-aws-install-config-configmap -n scratchspace -o yaml > /tmp/aws-ic-cmap.yaml
 
 # Parameters passed to the Tekton Job via user input in Backstage 
@@ -49,6 +51,9 @@ secretName="$CLUSTER_NAME-install-config" yq e -i '.metadata.name = env(secretNa
 
 # This can be defined as an env variable in the Tekton task referencing the input workspace.
 # cp /tmp/install-config.yaml $WORKSPACE
+
+# TODO: Pass the configmap to the downstream steps within this Task to avoid the overhead of calling it all the time.
+# We will assume it remains static
 
 # We also need to pass some results downstream to the next task, which creates the ClusterDeployment. 
 # The CR is a function of aws-creds-ref, pull-secret ref, ssh-secret-ref, install-config-ref, base domain, and the name of the cluster.
