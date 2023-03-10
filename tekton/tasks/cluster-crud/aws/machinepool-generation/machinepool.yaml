@@ -16,7 +16,5 @@ spec:
         type: CHANGEME_CONFIGMAP
       type: CHANGEME_CONFIGMAP
       zones:
-      - ap-southeast-2a # Parametrise zones later
-      - ap-southeast-2b
-      - ap-southeast-2c
+      - ap-southeast-1a # Parametrise zones later
   replicas: CHANGEME_CONFIGMAP

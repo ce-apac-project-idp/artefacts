@@ -10,9 +10,7 @@ controlPlane:
   platform:
     aws:
       zones:
-        - ap-southeast-2a
-        - ap-southeast-2b
-        - ap-southeast-2c
+        - ap-southeast-1a   # Parametrise later
       rootVolume:
         iops: CHANGEME-Configmap-f(userinput-size)
         size: CHANGME-Configmap-f(userinput-size)
@@ -31,9 +29,7 @@ compute:
         type: CHANGEME-Configmap-f(userinput-size)
       type: CHANGEME-Configmap-f(userinput-size)
       zones:
-        - ap-southeast-2a
-        - ap-southeast-2b
-        - ap-southeast-2c
+        - ap-southeast-1a # Parametrise later
 networking:
   networkType: OpenShiftSDN
   clusterNetwork:
