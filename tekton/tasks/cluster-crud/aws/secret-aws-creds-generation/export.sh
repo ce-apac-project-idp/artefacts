@@ -1,0 +1,10 @@
+export CLUSTER_NAME=govtech
+export AWS_ACCESS_KEY_NAME=awsAccessKey
+export AWS_ACCESS_KEY_REF=ade6c30f-97a9-87c8-31ea-fdd7e14598fd
+export AWS_SECRET_KEY_NAME=awsSecretKey
+export AWS_SECRET_KEY_REF=36d87095-a40d-aa4a-e110-7de764cb018b
+export SECRET_STORE_REF=cluster
+export OPENSHIFT_PULL_SECRET_KEY_NAME=openshiftPullSecret
+export OPENSHIFT_PULL_SECRET_KEY_REF=d11eb84d-7a78-4dfd-0411-a32c3cae84c9
+export SSH_SECRET_KEY_NAME=openshiftSSHPrivateKey
+export SSH_SECRET_KEY_REF=edcc6329-e70b-0dfe-cc90-4996f3de877d

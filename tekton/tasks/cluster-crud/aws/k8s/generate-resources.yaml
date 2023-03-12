@@ -77,7 +77,7 @@ spec:
       - name: RHACM_AWS_GLOBAL_SECRET
         value: rhacm-aws-creds
       - name: RHACM_AWS_GLOBAL_SECRET_NAMESPACE
-        value: scratchspace # Move this to some other namespace.
+        value: "$(params.resourcesNamespace)" 
       script: | 
         #!/usr/bin/env bash
         cd /tmp
@@ -94,7 +94,7 @@ spec:
       - name: RHACM_AWS_GLOBAL_SECRET
         value: rhacm-aws-creds
       - name: RHACM_AWS_GLOBAL_SECRET_NAMESPACE
-        value: scratchspace # Move this to some other namespace.
+        value: "$(params.resourcesNamespace)"
       script: | 
         #!/usr/bin/env bash
         cd /tmp
