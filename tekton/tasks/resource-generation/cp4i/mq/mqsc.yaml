@@ -4,7 +4,7 @@ metadata:
   name: idp-qm-mqsc
   namespace: openshift-gitops
 data:
-  idp.mqsc: >
+  idp.mqsc: |
     DEFINE CHANNEL(RANGIN) CHLTYPE(SVRCONN) SSLCAUTH (OPTIONAL) REPLACE
     SET CHLAUTH(ACE.CONN) TYPE(BLOCKUSER) USERLIST(nobody)
     SET CHLAUTH(ACE.CONN) TYPE (ADDRESSMAP) ADDRESS(*) MCAUSER('mqm')
