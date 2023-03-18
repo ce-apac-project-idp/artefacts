@@ -10,6 +10,11 @@ spec:
     use: NonProduction
   queueManager:
     name: QM
+    mqsc:
+      - configMap:
+          items:
+            - idp.mqsc
+          name: idp-qm-mqsc
     resources:
       limits:
         cpu: 500m
