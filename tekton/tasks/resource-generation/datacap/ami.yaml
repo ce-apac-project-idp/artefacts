@@ -1,0 +1,16 @@
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: datacap-9.1.9
+spec:
+  forProvider:
+    region: ap-southeast-2 
+    imageId: ami-0d8a7bfe9f677126f 
+    keyName: windows-kp 
+    instanceType: t3.2xlarge
+    blockDeviceMappings:
+     - deviceName: /dev/sda1
+       ebs:
+         volumeSize: 100
+  providerConfigRef:
+    name: aws-provider-config 
