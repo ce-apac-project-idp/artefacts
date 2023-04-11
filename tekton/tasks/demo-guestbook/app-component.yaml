@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/kubernetes-label-selector: "app=guestbook"
+    backstage.io/source-location: url:https://github.com/ce-apac-project-idp/backstage-demo
+  name: guestbook-web
+  description: Web component for guestbook
+  links:
+    - url: http://guestbook-guestbook.itzroks-666000qmn3-85z15f-6ccd7f378ae819553d37d5f2ee142bd6-0000.au-syd.containers.appdomain.cloud
+      title: Guestbook
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: user:guest
+  system: guest-system
+  dependsOn:
+    - component:default/redis-controller-guestbook

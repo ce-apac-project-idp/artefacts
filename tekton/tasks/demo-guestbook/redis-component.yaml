@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/kubernetes-label-selector: "app=redis"
+  name: redis-controller-guestbook
+  description: GuestBook Redis Controller
+spec:
+  type: database
+  lifecycle: production
+  owner: user:guest
+  system: guest-system
+  dependencyOf:
+    - component:default/guestbook-web
