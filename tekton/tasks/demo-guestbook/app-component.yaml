@@ -5,6 +5,8 @@ metadata:
   annotations:
     backstage.io/kubernetes-label-selector: "app=guestbook"
     backstage.io/source-location: url:https://github.com/ce-apac-project-idp/backstage-demo
+    tektonci/build-namespace: tekton
+    tektonci/pipeline-label-selector: 'build-name=guestbook-deploy'
   name: guestbook-web
   description: Web component for guestbook
   links:

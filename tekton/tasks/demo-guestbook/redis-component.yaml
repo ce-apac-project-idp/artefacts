@@ -4,6 +4,8 @@ metadata:
   namespace: default
   annotations:
     backstage.io/kubernetes-label-selector: "app=redis"
+    tektonci/build-namespace: tekton
+    tektonci/pipeline-label-selector: 'build-name=guestbook-deploy'
   name: redis-controller-guestbook
   description: GuestBook Redis Controller
 spec:
