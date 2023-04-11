@@ -1,8 +1,8 @@
-FROM quay.io/openshift/origin-cli
-RUN groupadd builders && useradd builder && usermod -a -G builders builder
-RUN yum install -y wget git
-RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
-    chmod +x /usr/bin/yq
+FROM alpine
+RUN addgroup -S builders && adduser -S builder -G builders
+RUN apk fix && \
+    apk --no-cache --update add git git-lfs gpg less openssh patch libc6-compat bash shadow yq && \
+    git lfs install
 COPY redis-component.yaml /tmp
 COPY app-component.yaml /tmp
 RUN chmod a+w /tmp/redis-component.yaml  # Depending on your umask value (default 022 or 002) chmod +w may be different to chmod a+w. So I explicitly pass in the a.
