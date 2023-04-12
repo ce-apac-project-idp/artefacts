@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: guestbook
+  namespace: guestbook
+spec:
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: guestbook
